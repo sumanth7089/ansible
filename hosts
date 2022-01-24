@@ -1,5 +1,5 @@
 #AnsibleInventory
-lh ansible_host=192.168.122.1 ansible_connection=local  ansible_user=sumanth ansible_shh_pass=Jiofiber@1
+lh ansible_host=192.168.122.1 ansible_connection=local  ansible_user=sumanth ansible_shh_pass=/var/jenkins_home/ansible/remote-key
 sql_db1 ansible_host=sql01.xyz.com ansible_connection=ssh ansible_user=root ansible_ssh_pass=Lin$Pass
 sql_db2 ansible_host=sql02.xyz.com ansible_connection=ssh ansible_user=root ansible_ssh_pass=Lin$Pass
 web_node1 ansible_host=web01.xyz.com ansible_connection=winrm ansible_user=administrator ansible_password=Win$Pass
