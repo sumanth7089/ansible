@@ -1,0 +1,14 @@
+- name: update web servers
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: ensure git is present
+    yum:
+      name: git
+      state: present
+
+  - name: ensure ecomm site deployed
+    git:
+      repo: https://github.com/ravi2krishna/ecomm.git
+      dest: /var/www/html

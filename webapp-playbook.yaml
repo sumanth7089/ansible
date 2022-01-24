@@ -1,0 +1,16 @@
+- name: update webapplication 
+  hosts: localhost
+  become: true
+  tasks:
+  - name: ensure to install httpd
+    yum:
+      name: httpd
+      state: latest
+  - name: 'ensure to start the service'
+    service:
+      name: httpd
+      state: started
+  - name: ensure to enable httpd
+    service:
+      name: httpd
+      enabled: yes         

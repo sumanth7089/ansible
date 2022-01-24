@@ -1,10 +1,42 @@
--
-    name: 'Execute two commands on localhost'
+-   name: 'Execute command to display date on web_node1'
     hosts: localhost
+    become: true
+    become_user: root 
     tasks:
-        -
-            name: 'Execute a date command'
-            command: date
-        -    
-            name: 'Execute a command to display hosts file'
-            command: cat /etc/hosts 
+    - name: 'Execute a date command'
+      command: uname
+      register: command_output
+    - debug: 
+          var: command_output.stdout_lines
+    - name: 'Execute a command to display hosts file'
+      command: cat /etc/hosts
+      register: command_output
+    - debug: 
+          var: command_output.stdout_lines
+    - name: 'change dir'
+      command: 'cat hosts chdir=/etc'
+    - name: 'create a folder'
+      command: mkdir /folder creates=/folder 
+      register: command_output   
+    - debug: 
+          var: command_output.stdout_lines
+    - name: 'add dns server'
+      lineinfile:
+        path: '/etc/resolv.conf'
+        line: 'nameserver 10.0.0.1/16'
+    - name: 'copy a file from one path to other path'
+      copy:
+            src: /home/sumanth/Downloads/Networking.pdf
+            dest: /home/sumanth/Documents/
+            register: command_output   
+    - debug: 
+          var: command_output.stdout_lines
+    -  name: 'installing application'
+       yum:
+          name:
+             - 'httpd'
+             -  'git' 
+          state: present
+          
+
+            
