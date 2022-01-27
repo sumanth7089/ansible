@@ -1,0 +1,23 @@
+-
+    hosts: localhost
+    vars:
+       car_model: 'Polo'
+       country_name: "India"
+       title: "DevOps Engineer"      
+    tasks:
+        -
+            name: 'Print my car model'
+            command: 'echo "My car''s model is {{ car_model }}"'
+            register:
+              command_output
+        -   debug: 
+              var: command_output.stdout_lines
+                
+        -
+            name: 'Print my country'
+            command: 'echo "I live in the {{ country_name }}"'
+        -
+            name: 'Print my title'
+            command: 'echo "I work as a {{ title }}"'
+
+                   

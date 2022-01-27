@@ -1,0 +1,58 @@
+- name: launching app on differnet os
+  hosts: all
+  become: yes
+  tasks:
+    - name: ensure to install httpd on app server
+      yum:
+        name: httpd
+        state: present
+      when: ansible_os_family == "RedHat" 
+    - name: ensure to install git on app server
+      yum:
+        name: git
+        state: present
+      when: ansible_os_family == "RedHat"  
+    - name: ensure to start services on app server 
+      service:
+        name: httpd
+        state: started
+      when: ansible_os_family == "RedHat"
+    - name: ensure to enable httpd 
+      service:
+        name: httpd
+        enabled: yes
+      when: ansible_os_family == "RedHat"
+    - name: ensure repository should be cloned 
+      git:
+        repo: https://github.com/ravi2krishna/ecomm.git
+        dest: /var/www/html 
+      when: ansible_os_family == "RedHat"
+    - name: ensure system should be update 
+      apt:
+        force_apt_get: yes
+      when: ansible_os_family == "Debian"
+    - name: installing apache2 on web servers 
+      apt: 
+        name: apache2
+        state: present 
+      when: ansible_os_family == "Debian"
+    - name: ensure apache2 is started  
+      service: 
+        name: apache2
+        state: started
+      when: ansible_os_family == "Debian"
+    - name: ensure apache2 is enabled
+      service:
+        name: apache2
+        enabled: yes
+      when: ansible_os_family == "Debian"
+    - name: ensure index is removed
+      file:
+        path: /var/www/html
+        state: absent 
+      when: ansible_os_family == "Debian"
+    - name: ensure code is cloned 
+      git:
+        repo: https://github.com/ravi2krishna/ecomm.git
+        dest: /var/www/html
+      when: ansible_os_family == "Debian"

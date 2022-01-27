@@ -1,31 +1,13 @@
 #AnsibleInventory
 lh ansible_host=192.168.122.1 ansible_connection=local  ansible_user=sumanth ansible_shh_pass=/var/jenkins_home/ansible/remote-key
-sql_db1 ansible_host=sql01.xyz.com ansible_connection=ssh ansible_user=root ansible_ssh_pass=Lin$Pass
-sql_db2 ansible_host=sql02.xyz.com ansible_connection=ssh ansible_user=root ansible_ssh_pass=Lin$Pass
-web_node1 ansible_host=web01.xyz.com ansible_connection=winrm ansible_user=administrator ansible_password=Win$Pass
-web_node2 ansible_host=web02.xyz.com ansible_connection=winrm ansible_user=administrator ansible_password=Win$Pass
-web_node3 ansible_host=web03.xyz.com ansible_connection=winrm ansible_user=administrator ansible_password=Win$Pass
+#Ansible Inventory File
+[app]
+w1 ansible_host=10.0.0.49 ansible_user=centos ansible_ssh_private_key_file=/home/centos/mumbai.pem
+w2 ansible_host=10.0.0.188 ansibel_user=centos ansible_ssh_private_key_file=/home/centos/mumbai.pem
+[web]
+w3 ansible_host=10.0.1.97 ansible_user=ubuntu ansible_ssh_private_key_file=/home/centos/mumbai.pem
 
-[localhost]
-lh 
-[db_nodes]
-sql_db1
-sql_db2
+[al:children]
 
-[web_nodes]
-web_node1
-web_node2
-web_node3
-
-[boston_nodes]
-sql_db1
-web_node1
-
-[dallas_nodes]
-sql_db2
-web_node2
-web_node3
-
-[us_nodes:children]
-boston_nodes
-dallas_nodes
+app
+web
