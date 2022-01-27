@@ -1,0 +1,39 @@
+- name: installing multiple packages 
+  hosts: app
+  vars:
+    packages:
+    - name: git
+      required: true
+    - name: wget
+      required: true
+  become: yes
+  tasks:
+    - name: install packages  "{{ item.name }}" 
+      yum:
+        name: "{{ item.name }}"
+        state: present
+
+      when: ansible_os_family == "RedHat"
+      loop: "{{ packages }}"
+   
+- name: creating a dyanmic webpage 
+  hosts: app
+  become: yes
+  tasks:
+  - name: ensure to set SElinux to permissive 
+    selinux:
+      policy: targeted
+      state: permissive
+  - name: ensure to restart httpd 
+    service:
+      name: httpd
+      state: restarted
+  - name: ensure file has to be updated
+    template: 
+      src: /home/centos/dyanmic.j2
+      dest: /var/www/html
+  - name: list assigned ports
+    command: netstat -ntpl
+    register: command_output
+  - debug: 
+      var: command_output.stdout_lines

@@ -1,13 +1,5 @@
-#AnsibleInventory
-lh ansible_host=192.168.122.1 ansible_connection=local  ansible_user=sumanth ansible_shh_pass=/var/jenkins_home/ansible/remote-key
-#Ansible Inventory File
-[app]
+[centos]
 w1 ansible_host=10.0.0.49 ansible_user=centos ansible_ssh_private_key_file=/home/centos/mumbai.pem
 w2 ansible_host=10.0.0.188 ansibel_user=centos ansible_ssh_private_key_file=/home/centos/mumbai.pem
-[web]
+[ubuntu]
 w3 ansible_host=10.0.1.97 ansible_user=ubuntu ansible_ssh_private_key_file=/home/centos/mumbai.pem
-
-[al:children]
-
-app
-web

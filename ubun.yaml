@@ -1,0 +1,26 @@
+- name: Install APACHE2 On Web Servers
+  hosts: web
+  become: yes
+
+  tasks:
+  - name: Ensure System Updated
+    ansible.builtin.apt:
+      update_cache: yes
+
+
+  - name: Ensure Apache HTTP Installed
+    ansible.builtin.apt:
+      name: apache2
+      state: present
+
+  - name: Ensure Apache HTTP Started
+    ansible.builtin.service:
+      name: apache2
+      state: started
+
+  - name: Ensure Apache HTTP Enabled
+    ansible.builtin.service:
+      name: apache2
+      enabled: yes
+...
+
